@@ -75,6 +75,7 @@ export const signIn = async (req, res, next) => {
       success: true,
       message: "User signed in successfully",
       data: {
+        token,
         user
       }
     });

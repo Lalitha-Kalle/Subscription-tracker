@@ -1,6 +1,6 @@
 import User from '../models/user.model.js'
 
-export const getUsers = async (req, resizeBy, next) => {
+export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
 
@@ -10,7 +10,7 @@ export const getUsers = async (req, resizeBy, next) => {
     })
     
   } catch(error) {
-    throw new Error(err)
+    next(error)
   }
 }
 
@@ -30,6 +30,6 @@ export const getUser = async(req, res, next) => {
     })
 
   } catch(err) {
-    throw new Error(err);
+    next(err)
   }
 }
