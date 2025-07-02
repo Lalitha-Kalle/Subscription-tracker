@@ -4,6 +4,9 @@ import {PORT} from './config/env.js'
 import connectDB from './db/database.js'
 const app = express()
 
+
+app.use(express.json())
+
 app.get("/", (req, res) => {
   res.send("Welcome to subscription tracker")
 })
