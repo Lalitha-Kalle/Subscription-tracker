@@ -20,8 +20,12 @@ const subscriptionSchema = new mongoose.Schema({
   },
   frequency: {
     type: String,
+    enum: ['daily', 'weekly', 'monthly', 'yearly'],
+  },
+  category: {
+    type: String,
     enum: ['sports', 'news', 'entertainment', 'lifestyle', 'technology', 'finance', 'politics', 'other'],
-    required: true
+    required: true,
   },
   paymentMethod: {
     type: String,
@@ -43,7 +47,6 @@ const subscriptionSchema = new mongoose.Schema({
   },
   renewalDate: {
     type: Date,
-    required: true,
     validate: {
       validator: function (value) {
         return value > this.startDate
@@ -81,4 +84,6 @@ subscriptionSchema.pre('save', function (next) {
   next();
 })
 
-const Subscripion = mongoose.model("Subscription", subscriptionSchema)
+const Subscription = mongoose.model("Subscription", subscriptionSchema)
+
+export default Subscription
