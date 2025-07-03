@@ -1,30 +1,39 @@
+import { SERVER_URL } from '../config/env.js'
+import { workflowClient } from '../config/upstash.js'
 import Subscription from '../models/subscription.model.js'
 import { StatusCodes } from 'http-status-codes'
 export const createSubscription = async (req, res, next) =>{
   try {
 
-    const exists = await Subscription.findOne({
-      user: req.user._id
-    })
+    // const exists = await Subscription.findOne({
+    //   user: req.user._id
+    // })
 
 
-    if(exists) {
-      return res.status(StatusCodes.CONFLICT).json({
-        success: false,
-        message: "Subscription with that user already exists"
-      })
-    }
+    // if(exists) {
+    //   return res.status(StatusCodes.CONFLICT).json({
+    //     success: false,
+    //     message: "Subscription with that user already exists"
+    //   })
+    // }
 
     const subscription = Subscription.create({
       ...req.body,
       user: req.user._id
     })
 
-    res.status(StatusCodes.CREATED).json({
-      success: true,
-      message: "Successfully subscription created",
-      data: subscription
+    const { workflowRunId } = await workflowClient.trigger({
+      url: `${SERVER_URL}/api/v1/workflows/subscription/remainder`,
+      body: {
+        subscriptionId: subscription.id,
+      },
+      headers: {
+        'content-type': 'application/json',
+      },
+      retries: 0,
     })
+
+    res.status(StatusCodes.CREATED).json({ success: true, message: "Successfully subscription created",data: { subscription, workflowRunId } })
   } catch (error) {
     next(error);
   }
