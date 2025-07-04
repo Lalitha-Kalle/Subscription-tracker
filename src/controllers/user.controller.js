@@ -51,7 +51,18 @@ export const createUser = async (req, res, next) => {
 }
 export const updateUser = async (req, res, next) => {
   try {
-    
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {new: true, runValidators: true}
+    )
+
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "User updated successfully",
+      data: user,
+      err: {}
+    })
   } catch (error) {
     next(error);
   }
