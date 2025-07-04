@@ -1,4 +1,5 @@
 import User from '../models/user.model.js'
+import StatusCodes from 'http-status-codes'
 
 export const getUsers = async (req, res, next) => {
   try {
@@ -32,4 +33,35 @@ export const getUser = async(req, res, next) => {
   } catch(err) {
     next(err)
   }
+}
+
+export const createUser = async (req, res, next) => {
+  try {
+    const user = await User.create(req.body);
+    
+    res.status(StatusCodes.CREATED).json({
+      success:true,
+      message: "User created successfully",
+      data: user
+    })
+
+  } catch (error) {
+    next(error);
+  }
+}
+export const updateUser = async (req, res, next) => {
+  try {
+    
+  } catch (error) {
+    next(error);
+  }
+  
+}
+export const deleteUser = async (req, res, next) => {
+  try {
+    
+  } catch (error) {
+    next(error);
+  }
+  
 }
