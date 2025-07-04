@@ -21,7 +21,14 @@ export const createSubscription = async (req, res, next) =>{
       retries: 0,
     })
 
-    res.status(StatusCodes.CREATED).json({ success: true, message: "Successfully subscription created",data: { subscription, workflowRunId } })
+    res.status(StatusCodes.CREATED).json({ 
+      success: true, 
+      message: "Successfully subscription created",
+      data: { 
+        subscription, 
+        workflowRunId 
+      } 
+    })
   } catch (error) {
     next(error);
   }
