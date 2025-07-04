@@ -5,19 +5,7 @@ import { StatusCodes } from 'http-status-codes'
 export const createSubscription = async (req, res, next) =>{
   try {
 
-    // const exists = await Subscription.findOne({
-    //   user: req.user._id
-    // })
-
-
-    // if(exists) {
-    //   return res.status(StatusCodes.CONFLICT).json({
-    //     success: false,
-    //     message: "Subscription with that user already exists"
-    //   })
-    // }
-
-    const subscription = Subscription.create({
+    const subscription = await Subscription.create({
       ...req.body,
       user: req.user._id
     })

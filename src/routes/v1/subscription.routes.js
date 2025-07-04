@@ -6,6 +6,6 @@ const subscriptionRoutes = Router()
 
 subscriptionRoutes.post("/", authorize, createSubscription)
 
-subscriptionRoutes.post("/user/:id", authorize, getUsersSubscriptions)
+subscriptionRoutes.get("/user/:id", authorize, getUsersSubscriptions)
 
 export default subscriptionRoutes
