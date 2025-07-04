@@ -6,7 +6,7 @@ import authRouter from './routes/v1/auth.routes.js'
 import userRouter from './routes/v1/user.routes.js'
 import arcjetMiddleware from './middlewares/arcjet.middleware.js'
 import errorMiddleware from './middlewares/error.middleware.js'
-import subscriptionRoutes from './routes/v1/subscription.routes.js'
+import subscriptionRouter from './routes/v1/subscription.routes.js'
 import workflowRouter from './routes/v1/workflow.routes.js'
 import { notFoundMiddleware } from './middlewares/notFound.middleware.js'
 
@@ -20,7 +20,7 @@ app.use(arcjetMiddleware)
 
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", userRouter)
-app.use("/api/v1/subscriptions", subscriptionRoutes)
+app.use("/api/v1/subscriptions", subscriptionRouter)
 app.use("/api/v1/workflows", workflowRouter)
 
 app.use(notFoundMiddleware)

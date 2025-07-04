@@ -2,10 +2,10 @@ import { Router } from "express";
 import { createSubscription, getUsersSubscriptions } from "../../controllers/subscription.controller.js";
 import authorize from '../../middlewares/auth.middleware.js'
 
-const subscriptionRoutes = Router()
+const subscriptionRouter = Router()
 
-subscriptionRoutes.post("/", authorize, createSubscription)
+subscriptionRouter.post("/", authorize, createSubscription)
 
-subscriptionRoutes.get("/user/:id", authorize, getUsersSubscriptions)
+subscriptionRouter.get("/user/:id", authorize, getUsersSubscriptions)
 
-export default subscriptionRoutes
+export default subscriptionRouter
