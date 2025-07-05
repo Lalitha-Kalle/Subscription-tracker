@@ -49,10 +49,25 @@ export const getUsersSubscriptions = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: 'Get all user subscriptions',
-      data: subscriptions
+      data: subscriptions,
+      err: {}
     })
 
   } catch (error) {
     next(error);
   }
 }
+
+export const getAllSubscriptions = async (req, res) => {
+  try {
+    const subscriptions = await Subscription.find();
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: 'Get all subscriptions',
+      data: subscriptions,
+      error: {}
+    });
+  } catch (error) {
+    next(error);
+  }
+};
