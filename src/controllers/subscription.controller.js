@@ -46,7 +46,7 @@ export const getUsersSubscriptions = async (req, res, next) => {
       user: req.params.id
     });
 
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       success: true,
       message: 'Get all user subscriptions',
       data: subscriptions,
@@ -58,7 +58,7 @@ export const getUsersSubscriptions = async (req, res, next) => {
   }
 }
 
-export const getAllSubscriptions = async (req, res) => {
+export const getAllSubscriptions = async (req, res, next) => {
   try {
     const subscriptions = await Subscription.find();
     res.status(StatusCodes.OK).json({
@@ -67,6 +67,22 @@ export const getAllSubscriptions = async (req, res) => {
       data: subscriptions,
       error: {}
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getSubscriptionById = async (req, res, next) => {
+  try {
+    const subscription = await Subscription.findById(req.params.id);
+    
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: 'Get subscription by Id',
+      data: subscription,
+      err: {}
+    })
+    
   } catch (error) {
     next(error);
   }
