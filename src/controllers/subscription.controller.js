@@ -120,3 +120,21 @@ export const deleteSubscriptionById = async (req, res, next) => {
     next(error);
   }
 };
+
+export const cancelSubscriptionById = async (req, res, next) => {
+  try {
+    const subscription = await Subscription.findById(req.params.id);
+
+    subscription.status = 'cancelled';
+    await subscription.save();
+
+    res.json({
+      success: true,
+      message: 'Subscription cancelled', 
+      data: subscription,
+      error: {}
+    });
+  } catch (error) {
+    next(error);
+  }
+};
