@@ -75,7 +75,7 @@ export const getAllSubscriptions = async (req, res, next) => {
 export const getSubscriptionById = async (req, res, next) => {
   try {
     const subscription = await Subscription.findById(req.params.id);
-    
+
     res.status(StatusCodes.OK).json({
       success: true,
       message: 'Get subscription by Id',
@@ -83,6 +83,25 @@ export const getSubscriptionById = async (req, res, next) => {
       err: {}
     })
     
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateSubscriptionById = async (req, res, next) => {
+  try {
+    const updated = await Subscription.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Subscription updated successfully",
+      data: updated,
+      err: {}
+    })
+
   } catch (error) {
     next(error);
   }
