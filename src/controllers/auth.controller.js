@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
+import { StatusCodes } from "http-status-codes";
 
 import User from '../models/user.model.js';
 import { JWT_EXPIRY_IN, JWT_SECRET } from "../config/env.js";
@@ -35,7 +36,7 @@ export const signUp = async (req, res, next) => {
     await session.commitTransaction();
     session.endSession();
 
-    res.status(201).json({
+    res.status(StatusCodes.CREATED).json({
       success: true,
       message: "User created successfully",
       data: {
@@ -71,7 +72,7 @@ export const signIn = async (req, res, next) => {
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRY_IN });
 
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       success: true,
       message: "User signed in successfully",
       data: {

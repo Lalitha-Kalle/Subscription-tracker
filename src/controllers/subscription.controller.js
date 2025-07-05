@@ -110,7 +110,7 @@ export const updateSubscriptionById = async (req, res, next) => {
 export const deleteSubscriptionById = async (req, res, next) => {
   try {
     await Subscription.findByIdAndDelete(req.params.id);
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       success: true,
       message: "Subscription deleted Successfully",
       data: {},
@@ -128,7 +128,7 @@ export const cancelSubscriptionById = async (req, res, next) => {
     subscription.status = 'cancelled';
     await subscription.save();
 
-    res.json({
+    res.status(StatusCodes.OK).json({
       success: true,
       message: 'Subscription cancelled', 
       data: subscription,

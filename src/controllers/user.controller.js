@@ -5,7 +5,7 @@ export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
 
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       success: true,
       data: users
     })
@@ -25,7 +25,7 @@ export const getUser = async(req, res, next) => {
       throw error;
     }
 
-    res.status(200).json({
+    res.status(StatusCodes.OK).json({
       success: true,
       data: user
     })
@@ -73,14 +73,14 @@ export const deleteUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "User not found",
         data: {},
         error: "NotFound"
       });
     }
-    res.status(200).json({
+    res.status(statusCode.OK).json({
       success: true,
       message: "User deleted Successfully",
       data: {},
